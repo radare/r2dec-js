@@ -39,6 +39,12 @@ static void _cmd_pdd(RCore *core, const char *input) {
 
 static int r_cmd_pdd(void *user, const char *input) {
 	RCore *core = (RCore *) user;
+	if (!strncmp (input, "e cmd.pdc", 9)) {
+		if (strchr (input, '=') && strchr (input, '?')) {
+			r_cons_printf ("r2dec\n");
+			return false;
+		}
+	}
 	if (!strncmp (input, "pdd", 3)) {
 		_cmd_pdd (core, input + 3);
 		return true;
@@ -47,8 +53,8 @@ static int r_cmd_pdd(void *user, const char *input) {
 }
 
 RCorePlugin r_core_plugin_test = {
-	.name = "test",
-	.desc = "lalallala",
+	.name = "r2dec",
+	.desc = "pseudo-decompiler available with the pdd command",
 	.license = "Apache",
 	.call = r_cmd_pdd,
 };
